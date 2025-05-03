@@ -43,9 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  const Color(0xFFE0F7FA),
                   const Color(0xFFB2EBF2),
-                  const Color(0xFF80DEEA),
+                  const Color(0xFFE0F7FA),
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -55,7 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
           // Content
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 20.0, vertical: 40.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -64,38 +64,38 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       children: [
                         Container(
-                          padding: const EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.black.withOpacity(0.1),
-                                blurRadius: 10,
+                                blurRadius: 8,
                                 spreadRadius: 2,
                               ),
                             ],
                           ),
                           child: Image.asset(
                             'assets/appLogo.png',
-                            height: 80,
-                            width: 80,
+                            height: 75,
+                            width: 75,
                           ),
                         ),
                         const SizedBox(height: 15),
                         const Text(
                           "Stock Genius",
                           style: TextStyle(
-                            fontSize: 28,
+                            fontSize: 30,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFF2C3E50),
                           ),
                         ),
-                        const SizedBox(height: 5),
+                        const SizedBox(height: 8),
                         const Text(
                           "Your one-stop stock tracking app",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 18,
                             color: Color(0xFF34495E),
                           ),
                         ),
@@ -105,15 +105,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(height: 40),
                   // Greeting Section
                   Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(18),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          spreadRadius: 2,
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 12,
+                          spreadRadius: 3,
                         ),
                       ],
                     ),
@@ -122,12 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Hello, ${userDetails?['username'] ?? user?.email ?? 'User'}!",
                           style: const TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w500,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
                             color: Color(0xFF2C3E50),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 12),
                         const Text(
                           "What would you like to explore today?",
                           style: TextStyle(
@@ -142,29 +142,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   // Navigation Cards Section
                   Expanded(
                     child: GridView(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 18,
+                        mainAxisSpacing: 18,
                       ),
                       children: [
                         _buildNavigationCard(
                           title: "Newsfeed",
                           icon: Icons.article_outlined,
                           color: const Color(0xFF4DB6AC),
-                          onTap: () => Navigator.pushNamed(context, '/newsfeed'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/newsfeed'),
                         ),
                         _buildNavigationCard(
                           title: "Watchlist",
                           icon: Icons.favorite_outline,
                           color: const Color(0xFF81C784),
-                          onTap: () => Navigator.pushNamed(context, '/watchlist'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/watchlist'),
                         ),
                         _buildNavigationCard(
                           title: "Stock Details",
                           icon: Icons.bar_chart_outlined,
                           color: const Color(0xFF64B5F6),
-                          onTap: () => Navigator.pushNamed(context, '/stock_details'),
+                          onTap: () =>
+                              Navigator.pushNamed(context, '/stock_details'),
                         ),
                       ],
                     ),
@@ -180,22 +184,24 @@ class _HomeScreenState extends State<HomeScreen> {
             child: GestureDetector(
               onTap: () => _showProfileDetails(context),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.1),
-                      blurRadius: 5,
-                      spreadRadius: 1,
+                      blurRadius: 6,
+                      spreadRadius: 2,
                     ),
                   ],
                 ),
                 child: const Row(
                   children: [
-                    Icon(Icons.person_outline, color: Color(0xFF2C3E50), size: 24),
-                    SizedBox(width: 8),
+                    Icon(Icons.person_outline,
+                        color: Color(0xFF2C3E50), size: 24),
+                    SizedBox(width: 10),
                     Text(
                       "View Profile",
                       style: TextStyle(
@@ -237,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
+              blurRadius: 8,
               spreadRadius: 2,
             ),
           ],
@@ -246,18 +252,18 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+                color: color.withOpacity(0.15),
                 shape: BoxShape.circle,
               ),
-              child: Icon(icon, size: 40, color: color),
+              child: Icon(icon, size: 42, color: color),
             ),
-            const SizedBox(height: 15),
+            const SizedBox(height: 18),
             Text(
               title,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFF2C3E50),
               ),
@@ -283,7 +289,7 @@ class _HomeScreenState extends State<HomeScreen> {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.1),
-                blurRadius: 10,
+                blurRadius: 8,
                 spreadRadius: 2,
               ),
             ],
@@ -296,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Text(
                   "Profile Details",
                   style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2C3E50),
                   ),
@@ -304,7 +310,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 const Divider(color: Color(0xFFE0E0E0)),
                 ListTile(
                   leading: const Icon(Icons.email, color: Color(0xFF16A085)),
-                  title: const Text('Email', style: TextStyle(color: Color(0xFF2C3E50))),
+                  title: const Text('Email',
+                      style: TextStyle(color: Color(0xFF2C3E50))),
                   subtitle: Text(
                     userDetails?['email'] ?? "N/A",
                     style: const TextStyle(color: Color(0xFF34495E)),
@@ -312,7 +319,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.person, color: Color(0xFF16A085)),
-                  title: const Text('Username', style: TextStyle(color: Color(0xFF2C3E50))),
+                  title: const Text('Username',
+                      style: TextStyle(color: Color(0xFF2C3E50))),
                   subtitle: Text(
                     userDetails?['username'] ?? "N/A",
                     style: const TextStyle(color: Color(0xFF34495E)),
@@ -320,7 +328,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   leading: const Icon(Icons.phone, color: Color(0xFF16A085)),
-                  title: const Text('Phone', style: TextStyle(color: Color(0xFF2C3E50))),
+                  title: const Text('Phone',
+                      style: TextStyle(color: Color(0xFF2C3E50))),
                   subtitle: Text(
                     userDetails?['phone'] ?? "N/A",
                     style: const TextStyle(color: Color(0xFF34495E)),
@@ -333,12 +342,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
-                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 15),
                   ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: const Text("Close", style: TextStyle(color: Colors.white)),
+                  child: const Text("Close",
+                      style: TextStyle(color: Colors.white)),
                 ),
               ],
             ),
