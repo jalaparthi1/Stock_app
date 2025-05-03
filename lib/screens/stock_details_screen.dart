@@ -6,7 +6,7 @@ import '../services/finnhub_service.dart';
 class StockDetailsScreen extends StatefulWidget {
   final String? initialSymbol;
 
-  StockDetailsScreen({this.initialSymbol});
+  const StockDetailsScreen({super.key, this.initialSymbol});
 
   @override
   _StockDetailsScreenState createState() => _StockDetailsScreenState();
@@ -82,21 +82,24 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
   Future<void> _fetchStockDetails(String symbol) async {
     if (symbol.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a stock symbol')),
+        const SnackBar(
+          content: Text('Please enter a stock symbol'),
+          backgroundColor: Color(0xFFE57373),
+        ),
       );
       return;
     }
 
     setState(() {
       _isLoading = true;
-      _stockData = {}; // Clear previous data
+      _stockData = {};
     });
 
     try {
       final data =
           await _finnhubService.fetchStockData(symbol.trim().toUpperCase());
       setState(() {
-        _stockData = {symbol: data}; // Display only searched stock
+        _stockData = {symbol: data};
         _isLoading = false;
       });
     } catch (e) {
@@ -104,7 +107,10 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
         _isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching data for $symbol: $e')),
+        SnackBar(
+          content: Text('Error fetching data for $symbol: $e'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }
@@ -130,7 +136,10 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$symbol removed from watchlist')),
+          SnackBar(
+            content: Text('$symbol removed from watchlist'),
+            backgroundColor: const Color(0xFF81C784),
+          ),
         );
       } else {
         await watchlistRef.add({'symbol': symbol});
@@ -139,12 +148,18 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
         });
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('$symbol added to watchlist')),
+          SnackBar(
+            content: Text('$symbol added to watchlist'),
+            backgroundColor: const Color(0xFF81C784),
+          ),
         );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error updating watchlist: $e')),
+        SnackBar(
+          content: Text('Error updating watchlist: $e'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }
@@ -153,13 +168,25 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Stock Details'),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'Stock Details',
+          style: TextStyle(
+            color: Color(0xFF2C3E50),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF2C3E50)),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.purple.shade700],
+            colors: [
+              const Color(0xFFE0F7FA),
+              const Color(0xFFB2EBF2),
+              const Color(0xFF80DEEA),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -168,26 +195,53 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Search Bar
-              TextField(
-                controller: _stockSymbolController,
-                decoration: InputDecoration(
-                  labelText: 'Enter Stock Symbol (e.g., AAPL)',
-                  border: OutlineInputBorder(),
-                  filled: true,
-                  fillColor: Colors.white,
-                  suffixIcon: IconButton(
-                    icon: Icon(Icons.search, color: Colors.teal),
-                    onPressed: () {
-                      _fetchStockDetails(_stockSymbolController.text.trim());
-                    },
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(15),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  controller: _stockSymbolController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter Stock Symbol (e.g., AAPL)',
+                    labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: const BorderSide(color: Color(0xFF16A085)),
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search, color: Color(0xFF16A085)),
+                      onPressed: () {
+                        _fetchStockDetails(_stockSymbolController.text.trim());
+                      },
+                    ),
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              // Display Loading Indicator or Stock Data
+              const SizedBox(height: 20),
               _isLoading
-                  ? CircularProgressIndicator()
+                  ? const Center(
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
+                      ),
+                    )
                   : _stockData.isNotEmpty
                       ? Expanded(
                           child: ListView.builder(
@@ -200,11 +254,25 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
                           ),
                         )
                       : Center(
-                          child: Text(
-                            'No stock data available.',
-                            style: TextStyle(
-                              fontSize: 18,
+                          child: Container(
+                            padding: const EdgeInsets.all(20),
+                            decoration: BoxDecoration(
                               color: Colors.white,
+                              borderRadius: BorderRadius.circular(15),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.05),
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                            child: const Text(
+                              'No stock data available.',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Color(0xFF2C3E50),
+                              ),
                             ),
                           ),
                         ),
@@ -216,26 +284,32 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
   }
 
   Widget _buildStockCard(String symbol, Map<String, dynamic>? data) {
-    if (data == null) return SizedBox.shrink();
+    if (data == null) return const SizedBox.shrink();
 
-    return Card(
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Stock Image
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),
             ),
             child: Image.asset(
-              'assets/stock_image.png', // Placeholder image for stock
-              height: 150,
+              'assets/stock_image.png',
+              height: 200,
               width: double.infinity,
               fit: BoxFit.cover,
             ),
@@ -247,17 +321,18 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
               children: [
                 Text(
                   symbol,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF2C3E50),
                   ),
                 ),
-                Divider(color: Colors.grey),
+                const Divider(color: Color(0xFFE0E0E0)),
                 _buildStockDetailRow('Current Price', '\$${data['c']}'),
                 _buildStockDetailRow('High Price', '\$${data['h']}'),
                 _buildStockDetailRow('Low Price', '\$${data['l']}'),
                 _buildStockDetailRow('Previous Close', '\$${data['pc']}'),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -267,8 +342,8 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
                             ? Icons.favorite
                             : Icons.favorite_border,
                         color: _watchlist.contains(symbol)
-                            ? Colors.red
-                            : Colors.grey,
+                            ? const Color(0xFFE57373)
+                            : const Color(0xFF34495E),
                         size: 30,
                       ),
                       onPressed: () => _toggleWatchlist(symbol),
@@ -280,8 +355,8 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
                       style: TextStyle(
                         fontSize: 16,
                         color: _watchlist.contains(symbol)
-                            ? Colors.green
-                            : Colors.grey,
+                            ? const Color(0xFF81C784)
+                            : const Color(0xFF34495E),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -303,11 +378,19 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
         children: [
           Text(
             label,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C3E50),
+            ),
           ),
           Text(
             value,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+              color: Color(0xFF34495E),
+            ),
           ),
         ],
       ),
