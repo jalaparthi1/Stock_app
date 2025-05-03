@@ -35,7 +35,6 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
     }
   }
 
-  // Fetch Watchlist
   Future<void> _fetchWatchlist() async {
     final userId = _auth.currentUser?.uid;
     if (userId == null) return;
@@ -56,7 +55,6 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
     }
   }
 
-  // Fetch Default Stocks
   Future<void> _fetchDefaultStocks() async {
     setState(() {
       _isLoading = true;
@@ -78,7 +76,6 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
     });
   }
 
-  // Fetch Specific Stock
   Future<void> _fetchStockDetails(String symbol) async {
     if (symbol.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -115,7 +112,6 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
     }
   }
 
-  // Toggle Watchlist
   Future<void> _toggleWatchlist(String symbol) async {
     final userId = _auth.currentUser?.uid;
     if (userId == null) return;
@@ -169,10 +165,11 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Stock Details',
+          'Market Stock Overview', // ✅ UI Change Here
           style: TextStyle(
-            color: Color(0xFF2C3E50),
-            fontWeight: FontWeight.bold,
+            color: Color(0xFF00796B),
+            fontWeight: FontWeight.w600,
+            letterSpacing: 1.0,
           ),
         ),
         backgroundColor: Colors.white,
@@ -239,7 +236,8 @@ class _StockDetailsScreenState extends State<StockDetailsScreen> {
               _isLoading
                   ? const Center(
                       child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
                       ),
                     )
                   : _stockData.isNotEmpty
