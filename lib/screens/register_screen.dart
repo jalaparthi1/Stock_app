@@ -64,14 +64,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
         'phone': _phoneController.text.trim(),
       });
 
-      _showSnackBar(
-          "Registration Successful! Redirecting to login...", const Color(0xFF81C784));
+      _showSnackBar("Registration Successful! Redirecting to login...",
+          const Color(0xFF81C784));
 
       Future.delayed(const Duration(seconds: 2), () {
         Navigator.pushReplacementNamed(context, '/');
       });
     } catch (e) {
-      _showSnackBar("Registration Failed: ${e.toString()}", const Color(0xFFE57373));
+      _showSnackBar(
+          "Registration Failed: ${e.toString()}", const Color(0xFFE57373));
     } finally {
       setState(() {
         _isLoading = false;
@@ -134,14 +135,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
+
+                // ✅ Updated Header Text
                 const Text(
-                  "Create an Account",
+                  "Create Your Account",
                   style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF2C3E50),
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF00796B),
+                    letterSpacing: 1.2,
                   ),
                 ),
+
                 const SizedBox(height: 40),
                 Container(
                   decoration: BoxDecoration(
@@ -163,18 +168,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
@@ -185,18 +192,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _usernameController,
                           decoration: InputDecoration(
                             labelText: 'Username',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
@@ -207,18 +216,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _passwordController,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
@@ -243,18 +254,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _phoneController,
                           decoration: InputDecoration(
                             labelText: 'Phone Number',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
