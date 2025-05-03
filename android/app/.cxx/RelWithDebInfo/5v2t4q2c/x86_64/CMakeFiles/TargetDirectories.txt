@@ -1,2 +1,0 @@
-/Users/joshikaalaparthi/Downloads/StockTrackerApp_Mad_Project2-main/android/app/.cxx/RelWithDebInfo/5v2t4q2c/x86_64/CMakeFiles/edit_cache.dir
-/Users/joshikaalaparthi/Downloads/StockTrackerApp_Mad_Project2-main/android/app/.cxx/RelWithDebInfo/5v2t4q2c/x86_64/CMakeFiles/rebuild_cache.dir

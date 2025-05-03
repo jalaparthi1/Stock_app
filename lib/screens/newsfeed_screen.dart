@@ -3,6 +3,8 @@ import '../services/finnhub_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NewsfeedScreen extends StatefulWidget {
+  const NewsfeedScreen({super.key});
+
   @override
   _NewsfeedScreenState createState() => _NewsfeedScreenState();
 }
@@ -35,7 +37,10 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
         _isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching news: ${e.toString()}')),
+        SnackBar(
+          content: Text('Error fetching news: ${e.toString()}'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }
@@ -44,13 +49,25 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Newsfeed'),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'Newsfeed',
+          style: TextStyle(
+            color: Color(0xFF2C3E50),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF2C3E50)),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.purple.shade700],
+            colors: [
+              const Color(0xFFE0F7FA),
+              const Color(0xFFB2EBF2),
+              const Color(0xFF80DEEA),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -58,7 +75,11 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
+                  ),
+                )
               : _newsArticles.isNotEmpty
                   ? ListView.builder(
                       itemCount: _newsArticles.length,
@@ -68,11 +89,25 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
                       },
                     )
                   : Center(
-                      child: Text(
-                        'No news available at the moment.',
-                        style: TextStyle(
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
                           color: Colors.white,
-                          fontSize: 16,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: const Text(
+                          'No news available at the moment.',
+                          style: TextStyle(
+                            color: Color(0xFF2C3E50),
+                            fontSize: 16,
+                          ),
                         ),
                       ),
                     ),
@@ -82,31 +117,37 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
   }
 
   Widget _buildNewsCard(Map<String, dynamic> article) {
-    return Card(
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // News Image or Placeholder
           ClipRRect(
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),
             ),
             child: article['image'] != null && article['image'].isNotEmpty
                 ? Image.network(
                     article['image'],
-                    height: 150,
+                    height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   )
                 : Image.asset(
-                    'assets/news_placeholder.png', // Use placeholder image
-                    height: 150,
+                    'assets/news_placeholder.png',
+                    height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
@@ -116,41 +157,38 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Headline
                 Text(
                   article['headline'],
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
+                    color: Color(0xFF2C3E50),
                   ),
                 ),
-                SizedBox(height: 8),
-                // Source
+                const SizedBox(height: 8),
                 Text(
                   'Source: ${article['source']}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.grey[700],
+                    color: Color(0xFF34495E),
                   ),
                 ),
-                SizedBox(height: 8),
-                // Summary
+                const SizedBox(height: 8),
                 Text(
                   article['summary'],
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
-                    color: Colors.grey[800],
+                    color: Color(0xFF34495E),
                   ),
                 ),
-                SizedBox(height: 8),
-                // Read More Button
+                const SizedBox(height: 16),
                 Align(
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
+                      backgroundColor: const Color(0xFF16A085),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -158,7 +196,10 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
                     onPressed: () {
                       _openArticle(article['url']);
                     },
-                    child: Text('Read More'),
+                    child: const Text(
+                      'Read More',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ),
               ],
@@ -173,23 +214,25 @@ class _NewsfeedScreenState extends State<NewsfeedScreen> {
     final Uri uri = Uri.parse(url);
 
     try {
-      print('Trying to launch URL: $url');
       if (await canLaunchUrl(uri)) {
         await launchUrl(
           uri,
           mode: LaunchMode.externalApplication,
         );
-        print('URL successfully launched');
       } else {
-        print('Cannot launch URL: $url');
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Could not launch the article')),
+          const SnackBar(
+            content: Text('Could not launch the article'),
+            backgroundColor: Color(0xFFE57373),
+          ),
         );
       }
     } catch (e) {
-      print('Error launching URL: $e');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error opening article: $e')),
+        SnackBar(
+          content: Text('Error opening article: $e'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }

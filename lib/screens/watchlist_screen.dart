@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'stock_details_screen.dart'; // Import StockDetailsScreen
 
 class WatchlistScreen extends StatefulWidget {
+  const WatchlistScreen({super.key});
+
   @override
   _WatchlistScreenState createState() => _WatchlistScreenState();
 }
@@ -37,8 +39,7 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
 
         setState(() {
           _watchlist = snapshot.docs
-              .map((doc) =>
-                  {'id': doc.id, ...doc.data() as Map<String, dynamic>})
+              .map((doc) => {'id': doc.id, ...doc.data()})
               .toList();
           _isLoading = false;
         });
@@ -48,7 +49,10 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
         _isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error fetching watchlist: $e')),
+        SnackBar(
+          content: Text('Error fetching watchlist: $e'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }
@@ -65,14 +69,20 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
             .delete();
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Stock removed from watchlist')),
+          const SnackBar(
+            content: Text('Stock removed from watchlist'),
+            backgroundColor: Color(0xFF81C784),
+          ),
         );
 
         _fetchWatchlist();
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error removing stock: $e')),
+        SnackBar(
+          content: Text('Error removing stock: $e'),
+          backgroundColor: const Color(0xFFE57373),
+        ),
       );
     }
   }
@@ -81,13 +91,25 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Watchlist'),
-        backgroundColor: Colors.teal,
+        title: const Text(
+          'My Watchlist',
+          style: TextStyle(
+            color: Color(0xFF2C3E50),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Color(0xFF2C3E50)),
       ),
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [Colors.blue.shade200, Colors.purple.shade700],
+            colors: [
+              const Color(0xFFE0F7FA),
+              const Color(0xFFB2EBF2),
+              const Color(0xFF80DEEA),
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
@@ -95,14 +117,32 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: _isLoading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
+                  ),
+                )
               : _watchlist.isEmpty
                   ? Center(
-                      child: Text(
-                        'Your watchlist is empty.',
-                        style: TextStyle(
-                          fontSize: 18,
+                      child: Container(
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
                           color: Colors.white,
+                          borderRadius: BorderRadius.circular(15),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.05),
+                              blurRadius: 10,
+                              spreadRadius: 2,
+                            ),
+                          ],
+                        ),
+                        child: const Text(
+                          'Your watchlist is empty.',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Color(0xFF2C3E50),
+                          ),
                         ),
                       ),
                     )
@@ -125,38 +165,55 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => StockDetailsScreen(
-                initialSymbol: stock['symbol']), // Pass the stock symbol
+              initialSymbol: stock['symbol'],
+            ),
           ),
         );
       },
-      child: Card(
-        elevation: 8,
-        shape: RoundedRectangleBorder(
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: Colors.white,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              spreadRadius: 2,
+            ),
+          ],
         ),
-        margin: const EdgeInsets.symmetric(vertical: 10),
         child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.teal,
+          leading: Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: const Color(0xFF16A085).withOpacity(0.1),
+              shape: BoxShape.circle,
+            ),
             child: Text(
               stock['symbol'][0],
-              style: TextStyle(
-                color: Colors.white,
+              style: const TextStyle(
+                color: Color(0xFF16A085),
                 fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
             ),
           ),
           title: Text(
             stock['symbol'],
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Color(0xFF2C3E50),
+            ),
           ),
           trailing: IconButton(
-            icon: Icon(Icons.delete, color: Colors.red),
+            icon: const Icon(Icons.delete, color: Color(0xFFE57373)),
             onPressed: () => _removeStock(stock['id']),
           ),
-          subtitle: Text(
+          subtitle: const Text(
             'Tap to view details',
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: Color(0xFF34495E)),
           ),
         ),
       ),
