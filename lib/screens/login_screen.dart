@@ -49,11 +49,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.1),
+                // Logo Section
                 Container(
                   padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
@@ -77,12 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 const Text(
                   "Welcome to Stock Genius",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 26,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF2C3E50),
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
+                // Email and Password Fields
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -103,18 +104,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _emailController,
                           decoration: InputDecoration(
                             labelText: 'Email',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
@@ -126,18 +131,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _passwordController,
                           decoration: InputDecoration(
                             labelText: 'Password',
-                            labelStyle: const TextStyle(color: Color(0xFF2C3E50)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFF2C3E50)),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFFE0E0E0)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFFE0E0E0)),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Color(0xFF16A085)),
+                              borderSide:
+                                  const BorderSide(color: Color(0xFF16A085)),
                             ),
                             fillColor: Colors.white,
                             filled: true,
@@ -149,20 +158,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
+                // Login Button
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(30),
                     ),
+                    backgroundColor:
+                        const Color(0xFF16A085), // Slightly brighter green
                   ),
                   onPressed: _login,
                   child: const Text(
                     'Login',
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
                 const SizedBox(height: 20),
+                // Register Button
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacementNamed(context, '/register');
@@ -171,7 +185,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     "Don't have an account? Register",
                     style: TextStyle(
                       color: Color(0xFF2C3E50),
-                      fontSize: 14,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
