@@ -170,6 +170,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           onTap: () =>
                               Navigator.pushNamed(context, '/stock_details'),
                         ),
+                        _buildNavigationCard(
+                          title: "Price History",
+                          icon: Icons.history,
+                          color: const Color(0xFFFFB74D),
+                          onTap: () => Navigator.pushNamed(
+                              context, '/stock_price_history'),
+                        ),
                       ],
                     ),
                   ),
