@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'stock_details_screen.dart'; // Import StockDetailsScreen
+import 'stock_details_screen.dart';
 
 class WatchlistScreen extends StatefulWidget {
   const WatchlistScreen({super.key});
@@ -92,10 +92,12 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'My Watchlist',
+          'Watchlist Overview', // ✅ UI Change
           style: TextStyle(
-            color: Color(0xFF2C3E50),
-            fontWeight: FontWeight.bold,
+            color: Color(0xFF00796B),
+            fontWeight: FontWeight.w600,
+            fontSize: 22,
+            letterSpacing: 0.5,
           ),
         ),
         backgroundColor: Colors.white,
@@ -119,7 +121,8 @@ class _WatchlistScreenState extends State<WatchlistScreen> {
           child: _isLoading
               ? const Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
+                    valueColor:
+                        AlwaysStoppedAnimation<Color>(Color(0xFF16A085)),
                   ),
                 )
               : _watchlist.isEmpty
