@@ -4,7 +4,7 @@ import '../services/finnhub_service.dart';
 class StockDetailPage extends StatefulWidget {
   final String symbol;
 
-  StockDetailPage({required this.symbol});
+  const StockDetailPage({super.key, required this.symbol});
 
   @override
   _StockDetailPageState createState() => _StockDetailPageState();
@@ -58,9 +58,9 @@ class _StockDetailPageState extends State<StockDetailPage> {
           ),
         ),
         child: _isLoading
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : _stockData == null
-                ? Center(
+                ? const Center(
                     child: Text(
                       'No data available',
                       style: TextStyle(color: Colors.white),
@@ -73,23 +73,23 @@ class _StockDetailPageState extends State<StockDetailPage> {
                       children: [
                         Text(
                           'Current Price: \$${_stockData!['c']}',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           'High: \$${_stockData!['h']}',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Text(
                           'Low: \$${_stockData!['l']}',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                         Text(
                           'Previous Close: \$${_stockData!['pc']}',
-                          style: TextStyle(fontSize: 16),
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
